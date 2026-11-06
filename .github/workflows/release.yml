@@ -1,0 +1,44 @@
+name: Build and Release Windows EXE
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar PyInstaller
+        run: python -m pip install --upgrade pyinstaller
+
+      - name: Gerar executável
+        run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name MonitorRecursos monitor_recursos.py
+
+      - name: Criar ZIP para download
+        shell: pwsh
+        run: Compress-Archive -Path dist/MonitorRecursos.exe, README.md, LEIA-ME.txt -DestinationPath MonitorRecursos-Windows.zip
+
+      - name: Publicar Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: MonitorRecursos-Windows.zip
+          body: |
+            ## Monitor de Recursos do PC — Windows
+
+            Baixe `MonitorRecursos-Windows.zip`, extraia o conteúdo e abra `MonitorRecursos.exe`.
+
+            O aplicativo mostra RAM, armazenamento principal e armazenamento temporário, com atualização automática a cada 2 segundos.

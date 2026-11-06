@@ -1,0 +1,20 @@
+MONITOR DE RECURSOS DO PC
+
+O aplicativo mostra:
+- RAM total, usada, livre e percentual em uso;
+- armazenamento principal total, usado e livre;
+- armazenamento temporário: tamanho dos arquivos na pasta temporária e espaço livre no volume temporário.
+
+COMO GERAR O EXE NO WINDOWS
+1. Copie esta pasta para um computador com Windows.
+2. Instale o Python 3 pelo site https://www.python.org/downloads/windows/.
+3. Durante a instalação, marque "Add Python to PATH".
+4. Dê duplo clique em GERAR_EXE.bat.
+5. O arquivo será criado em dist\\MonitorRecursos.exe.
+
+COMO USAR
+Abra MonitorRecursos.exe. A tela atualiza automaticamente a cada 2 segundos.
+O programa é local e não envia dados para a internet.
+
+OBSERVAÇÃO
+O ambiente onde este pacote foi criado é Linux, por isso o EXE do Windows precisa ser gerado em um Windows. O script GERAR_EXE.bat faz isso automaticamente, incluindo a instalação do PyInstaller.
